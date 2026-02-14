@@ -1,0 +1,1 @@
+model_v1 | data:v1 | acc:0.9990 | prec:1.0000 | rec:0.9748 | file:models/model_v1.pkl

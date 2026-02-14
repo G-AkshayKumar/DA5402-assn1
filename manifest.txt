@@ -1,0 +1,38 @@
+
+===============================
+VERSION: v1
+DATE: 2026-02-14T19:12:47.692565
+SCRIPT: src/data_prep.py
+GIT_COMMIT: NA
+
+FILES:
+- data/processed/v1_train.csv | sha256: 4ce1a62ee724f3f250223761f393d2f84f47a971f7ceeab44c0d31c071bcace3
+- data/processed/v1_test.csv  | sha256: 6cfce5ac461930be52e27871cdfa053fe69151f7c6ef9e9dacdd44a20a19ee2a
+
+NOTES:
+- Dropped duplicates
+- Median imputation for numerics
+- Label encoded categoricals
+- Standard scaling applied
+- Train/Test split
+
+===============================
+
+===============================
+VERSION: v1
+DATE: 2026-02-14T19:18:31.297931
+SCRIPT: src/data_prep.py
+GIT_COMMIT: NA
+
+FILES:
+- data/processed/v1_train.csv | sha256: 92239b20ae4260410a00640db096f7717f2214423d3f1cbcd985f743f23aef52
+- data/processed/v1_test.csv  | sha256: d63bd85f79b20fb8730f9b38668784d6527946fe2629714982a7a118a61d0b74
+
+NOTES:
+- Dropped duplicates
+- Median imputation for numerics
+- Label encoded categoricals
+- Standard scaling applied
+- Train/Test split
+
+===============================

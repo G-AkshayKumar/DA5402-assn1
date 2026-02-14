@@ -1,0 +1,24 @@
+project_name: "Predictive_Maintenance_v1"
+author: "Akshay Kumar G"
+
+data:
+  raw_path: "data/raw/ai4i2020.csv"
+  processed_dir: "data/processed/"
+  current_version: "v1"
+
+preprocessing:
+  test_size: 0.3
+  random_state: 42
+  scale_numeric: true
+  encode_categorical: true
+
+model:
+  algorithm: "RandomForest"
+  n_estimators: 100
+  max_depth: 10
+  random_state: 42
+
+registry:
+  model_dir: "models/"
+  current_model_version: "model_v1"
+
