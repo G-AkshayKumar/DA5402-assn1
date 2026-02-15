@@ -5,6 +5,9 @@ data:
   raw_path: "data/raw/ai4i2020.csv"
   processed_dir: "data/processed/"
   current_version: "v1"
+  production_dir: "data/production/"
+  target_column: "Machine failure"
+
 
 preprocessing:
   test_size: 0.3
@@ -13,12 +16,20 @@ preprocessing:
   encode_categorical: true
 
 model:
-  algorithm: "RandomForest"
+  algorithm: "LogisticRegression"
   n_estimators: 100
   max_depth: 10
   random_state: 42
+  lr_C: 0.1
 
 registry:
   model_dir: "models/"
-  current_model_version: "model_v1"
+  current_model_version: "model_v2"
+
+deployment:
+  model_path: "models/model_v1.pkl"
+  port: 5000
+  threshold: 0.75
+
+
 

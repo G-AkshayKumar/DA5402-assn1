@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import yaml
 import os
 import hashlib
@@ -10,6 +11,8 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 # -------------------------------
 # Utility Functions
 # -------------------------------
+
+np.random.seed(42)
 
 def load_config():
     with open("config.yaml", "r") as f:
@@ -58,15 +61,18 @@ def main():
     df = df.drop_duplicates()
 
     # Fill numeric missing values with median
+    target_column = config["data"]["target_column"]
     numeric_cols = df.select_dtypes(include=["int64","float64"]).columns
+    numeric_cols = [c for c in numeric_cols if c != target_column]
+
     for col in numeric_cols:
         df[col] = df[col].fillna(df[col].median())
 
     # Encode categorical columns
-    cat_cols = df.select_dtypes(include=["object"]).columns
-    le = LabelEncoder()
-    for col in cat_cols:
-        df[col] = le.fit_transform(df[col])
+    if config["preprocessing"]["encode_categorical"]:
+        cat_cols = df.select_dtypes(include=["object","string"]).columns
+        for col in cat_cols:
+            df[col] = LabelEncoder().fit_transform(df[col])
 
     # -------------------------------
     # Train-Test Split
@@ -91,9 +97,11 @@ def main():
     # Scaling
     # -------------------------------
 
-    scaler = StandardScaler()
-    X_train_scaled = scaler.fit_transform(X_train)
-    X_test_scaled = scaler.transform(X_test)
+    if config["preprocessing"]["scale_numeric"]:
+        scaler = StandardScaler()
+        X_train_scaled = scaler.fit_transform(X_train)
+        X_test_scaled = scaler.transform(X_test)
+
 
     train_df = pd.DataFrame(X_train_scaled, columns=X.columns)
     train_df[target_column] = y_train.values
@@ -116,11 +124,12 @@ def main():
     git_commit = get_git_commit()
 
     timestamp = datetime.now().isoformat()
-
+    
     manifest_entry = f"""
 ===============================
 VERSION: {version}
 DATE: {timestamp}
+RAW_DATA: {raw_path}
 SCRIPT: src/data_prep.py
 GIT_COMMIT: {git_commit}
 

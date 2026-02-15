@@ -1,1 +1,4 @@
-model_v1 | data:v1 | acc:0.9990 | prec:1.0000 | rec:0.9748 | file:models/model_v1.pkl
+model_v1 | data:v1 | train_acc:0.9990 train_prec:1.0000 train_rec:0.9748 | test_acc:0.9993 test_prec:1.0000 test_rec:0.9672 | file:models/model_v1.pkl
+model_v1 | data:v1 | train_acc:0.9990 train_prec:1.0000 train_rec:0.9748 | test_acc:0.9993 test_prec:1.0000 test_rec:0.9672 | file:models/model_v1.pkl
+model_v2 | algo:LogisticRegression | data:v1 | train_acc:0.9990 train_prec:1.0000 train_rec:0.9748 | test_acc:0.9993 test_prec:1.0000 test_rec:0.9672 | file:models/model_v2.pkl
+model_v2 | algo:LogisticRegression | data:v1 | train_acc:0.9990 train_prec:1.0000 train_rec:0.9748 | test_acc:0.9993 test_prec:1.0000 test_rec:0.9672 | file:models/model_v2.pkl
