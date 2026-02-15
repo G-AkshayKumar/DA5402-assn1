@@ -62,9 +62,9 @@ def main():
 
     if model_cfg["algorithm"] == "RandomForest":
         model = RandomForestClassifier(
-            n_estimators=model_cfg["n_estimators"],
-            max_depth=model_cfg["max_depth"],
-            random_state=model_cfg["random_state"]
+            n_estimators=model_cfg["n_estimators_RF"],
+            max_depth=model_cfg["max_depth_RF"],
+            random_state=model_cfg["random_state_RF"]
         )
     
     elif model_cfg["algorithm"] == "LogisticRegression":
