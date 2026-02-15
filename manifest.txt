@@ -56,3 +56,23 @@ NOTES:
 - Train/Test split
 
 ===============================
+
+===============================
+VERSION: v1
+DATE: 2026-02-15T13:39:35.590318
+RAW_DATA: data/raw/ai4i2020.csv
+SCRIPT: src/data_prep.py
+GIT_COMMIT: c334deef9dc042326a8f7b7f8d4e95161f6bbb44
+
+FILES:
+- data/processed/v1_train.csv | sha256: 92239b20ae4260410a00640db096f7717f2214423d3f1cbcd985f743f23aef52
+- data/processed/v1_test.csv  | sha256: d63bd85f79b20fb8730f9b38668784d6527946fe2629714982a7a118a61d0b74
+
+Processing steps:
+- Dropped duplicate values
+- Median imputation for numerics
+- Label encoded categoricals
+- Standard scaling applied
+- Train/Test split
+
+===============================

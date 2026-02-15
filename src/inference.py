@@ -7,9 +7,7 @@ from pydantic import BaseModel
 from datetime import datetime
 import subprocess
 
-# -----------------------------
 # Load Config
-# -----------------------------
 
 def load_config():
     with open("config.yaml") as f:
@@ -29,27 +27,21 @@ MODEL_PATH = config["deployment"]["model_path"]
 PORT = config["deployment"]["port"]
 MODEL_VERSION = os.path.basename(MODEL_PATH)
 
-# -----------------------------
 # Load Model
-# -----------------------------
 
 try:
     model = joblib.load(MODEL_PATH)
 except:
     raise RuntimeError("Model file not found. Check config.yaml")
 
-# -----------------------------
 # FastAPI App
-# -----------------------------
 
 app = FastAPI(title="Predictive Maintenance API")
 
 class InputData(BaseModel):
     features: list
 
-# -----------------------------
 # Deployment Logging
-# -----------------------------
 
 def log_deployment():
     if not os.path.exists("deployment_log.csv"):
@@ -59,16 +51,14 @@ def log_deployment():
     timestamp = datetime.now().isoformat()
     git_commit = get_git_commit()
 
-    row = f"{timestamp},{MODEL_PATH},{MODEL_VERSION},{git_commit},{PORT},startup\n"
+    row = f"{timestamp},{MODEL_PATH},{MODEL_VERSION},{git_commit},{PORT},manual_deploy\n"
 
     with open("deployment_log.csv", "a") as f:
         f.write(row)
 
 log_deployment()
 
-# -----------------------------
 # Routes
-# -----------------------------
 
 @app.get("/")
 def home():

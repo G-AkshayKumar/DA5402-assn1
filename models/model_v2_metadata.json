@@ -1,9 +1,9 @@
 {
     "model_version": "model_v2",
-    "training_date": "2026-02-15T11:38:19.471760",
+    "training_date": "2026-02-15T13:39:57.894825",
     "dataset_version": "v1",
     "training_data_hash": "92239b20ae4260410a00640db096f7717f2214423d3f1cbcd985f743f23aef52",
-    "git_commit": "d02328407c46f12ece196c6d04f6590778a33eb9",
+    "git_commit": "c334deef9dc042326a8f7b7f8d4e95161f6bbb44",
     "algorithm": "LogisticRegression",
     "hyperparameters": {
         "algorithm": "LogisticRegression",
@@ -11,6 +11,17 @@
         "max_depth": 10,
         "random_state": 42,
         "lr_C": 0.1
+    },
+    "feature_schema_file": "data/processed/feature_names.txt",
+    "config_snapshot": {
+        "model": {
+            "algorithm": "LogisticRegression",
+            "n_estimators": 100,
+            "max_depth": 10,
+            "random_state": 42,
+            "lr_C": 0.1
+        },
+        "data_version": "v1"
     },
     "metrics": {
         "train": {

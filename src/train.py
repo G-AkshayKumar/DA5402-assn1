@@ -10,9 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 
-# ---------------------------
 # Utility Functions
-# ---------------------------
 
 def load_config():
     with open("config.yaml") as f:
@@ -32,9 +30,7 @@ def file_hash(path):
         h.update(f.read())
     return h.hexdigest()
 
-# ---------------------------
 # Training Pipeline
-# ---------------------------
 
 def main():
     config = load_config()
@@ -60,6 +56,8 @@ def main():
     X = df.drop(columns=[target])
     y = df[target]
 
+    feature_schema = "data/processed/feature_names.txt"
+
     print("Training model...")
 
     if model_cfg["algorithm"] == "RandomForest":
@@ -81,13 +79,11 @@ def main():
 
 
     model.fit(X, y)
-   # Evaluate on train
     train_preds = model.predict(X)
     train_acc = accuracy_score(y, train_preds)
     train_prec = precision_score(y, train_preds)
     train_rec = recall_score(y, train_preds)
 
-    # Evaluate on test
     test_file = os.path.join(processed_dir, f"{version}_test.csv")
     test_df = pd.read_csv(test_file)
 
@@ -102,6 +98,11 @@ def main():
     model_path = os.path.join(model_dir, f"{model_version}.pkl")
     joblib.dump(model, model_path)
 
+    config_snapshot = {
+        "model": model_cfg,
+        "data_version": version
+    }
+    
     metadata = {
         "model_version": model_version,
         "training_date": datetime.now().isoformat(),
@@ -110,19 +111,20 @@ def main():
         "git_commit": get_git_commit(),
         "algorithm": model_cfg["algorithm"],
         "hyperparameters": model_cfg,
+        "feature_schema_file": feature_schema,
+        "config_snapshot": config_snapshot,
         "metrics": {
-        "train": {
-            "accuracy": round(train_acc,4),
-            "precision": round(train_prec,4),
-            "recall": round(train_rec,4)
+            "train": {
+                "accuracy": round(train_acc,4),
+                "precision": round(train_prec,4),
+                "recall": round(train_rec,4)
+            },
+            "test": {
+                "accuracy": round(test_acc,4),
+                "precision": round(test_prec,4),
+                "recall": round(test_rec,4)
+            }
         },
-        "test": {
-            "accuracy": round(test_acc,4),
-            "precision": round(test_prec,4),
-            "recall": round(test_rec,4)
-        }
-    },
-
         "model_hash": file_hash(model_path)
     }
 
@@ -146,6 +148,5 @@ def main():
     print("Saved model:", model_path)
     print("Saved metadata:", meta_file)
 
-# ---------------------------
 if __name__ == "__main__":
     main()
